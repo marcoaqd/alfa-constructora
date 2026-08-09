@@ -66,8 +66,27 @@
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
+    .plano .luces{display:none}
     *,*::before,*::after{animation:none !important;transition:none !important}
   }
+
+  /* ---------- fondo: hoja de planos ---------- */
+  .plano{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .plano svg{width:100%;height:100%;display:block}
+  .plano .rejilla-fina{opacity:.045}
+  .plano .rejilla-gruesa{opacity:.075}
+  .plano .trazos{opacity:.07}
+  .plano .luz{fill:none;stroke:var(--borgona-claro);stroke-linecap:round;
+    stroke-dasharray:160 2200;stroke-dashoffset:2360;
+    animation:pl-recorre 17s linear infinite}
+  .plano .halo{stroke-width:8;opacity:.14}
+  .plano .nucleo{stroke-width:1.6;opacity:.8}
+  .plano .l2{animation-duration:14s;animation-delay:-5s}
+  .plano .l3{animation-duration:23s;animation-delay:-9s}
+  .plano .l4{animation-duration:16s;animation-delay:-13s}
+  .plano .l5{animation-duration:20s;animation-delay:-3s}
+  @keyframes pl-recorre{from{stroke-dashoffset:2360}to{stroke-dashoffset:0}}
+  main{position:relative;z-index:1}
 
   /* ---------- navegación ---------- */
   .nav{
@@ -109,17 +128,7 @@
   .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;
     background:
       radial-gradient(1100px 640px at 82% 30%, rgba(123,29,45,.16), transparent 62%),
-      radial-gradient(900px 700px at 12% 88%, rgba(142,142,147,.06), transparent 60%),
-      var(--grafito-profundo);
-  }
-  .hero::before{ /* retícula técnica */
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background-image:
-      linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
-    background-size:88px 88px;
-    -webkit-mask-image:radial-gradient(closest-side at 70% 45%, #000 30%, transparent 100%);
-    mask-image:radial-gradient(closest-side at 70% 45%, #000 30%, transparent 100%);
+      radial-gradient(900px 700px at 12% 88%, rgba(142,142,147,.06), transparent 60%);
   }
   .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,80px);align-items:center;width:100%;padding-top:var(--nav-h)}
   .hero h1{font-size:clamp(44px,6.4vw,88px);margin:26px 0 24px;letter-spacing:.01em}
@@ -143,7 +152,7 @@
   @keyframes gota{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
   /* ---------- franja de servicios ---------- */
-  .servicios-franja{border-block:1px solid var(--linea);background:var(--grafito)}
+  .servicios-franja{border-block:1px solid var(--linea);background:rgba(26,26,26,.58)}
   .franja-inner{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px clamp(22px,3.6vw,52px);padding:26px clamp(20px,4vw,48px)}
   .franja-inner span{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gris-acero);font-weight:500;white-space:nowrap}
   .franja-inner svg{opacity:.9}
@@ -156,7 +165,7 @@
   .sec-head .num{font-family:var(--serif);font-size:clamp(60px,7vw,96px);color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.14);line-height:.8;justify-self:end}
 
   /* ---------- nosotros ---------- */
-  #nosotros{background:var(--grafito)}
+  #nosotros{background:rgba(26,26,26,.62)}
   .nosotros-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,6vw,90px);align-items:start}
   .nosotros-texto p{margin-bottom:22px;color:var(--gris-acero);max-width:58ch}
   .nosotros-texto p strong{color:var(--gris-claro);font-weight:500}
@@ -239,7 +248,7 @@
   /* ---------- contacto ---------- */
   #contacto{background:
       radial-gradient(900px 520px at 14% 20%, rgba(123,29,45,.16), transparent 60%),
-      var(--grafito)}
+      rgba(26,26,26,.62)}
   .contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(44px,6vw,100px);align-items:start}
   .contacto-info h2{font-size:clamp(38px,4.6vw,62px);margin:22px 0 18px;max-width:12ch}
   .contacto-info>p{color:var(--gris-acero);max-width:44ch;margin-bottom:40px}
@@ -267,7 +276,7 @@
   .form-nota{font-size:11px;color:var(--gris-acero);margin-top:16px;text-align:center}
 
   /* ---------- footer ---------- */
-  footer{border-top:1px solid var(--linea);background:var(--grafito-profundo)}
+  footer{position:relative;z-index:1;border-top:1px solid var(--linea);background:rgba(18,18,19,.6)}
   .footer-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:26px;padding:44px clamp(20px,4vw,48px)}
   .footer-inner .brand img{height:46px}
   .footer-links{display:flex;gap:26px;list-style:none;flex-wrap:wrap}
@@ -289,7 +298,8 @@
     .panel{grid-column:span 12}
     .valores{grid-template-columns:1fr}
   }
-  @media (max-width:720px){
+  /* el lockup completo necesita más ancho: el menú colapsa antes que el resto */
+  @media (max-width:1120px){
     :root{--nav-h:74px}
     .brand img{height:42px}
     .nav-links{
@@ -307,6 +317,8 @@
     .menu-toggle.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
     .menu-toggle.open span:nth-child(2){opacity:0}
     .menu-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  }
+  @media (max-width:720px){
     .proyecto.w4,.proyecto.w5{grid-column:span 12}
     .proyecto.dos .fotos{flex-direction:column}
     .proyecto.dos{min-height:560px}
@@ -316,6 +328,51 @@
 </style>
 </head>
 <body>
+
+<!-- ══════════ Fondo: hoja de planos con luces recorriendo los trazos ══════════ -->
+<div class="plano" aria-hidden="true">
+  <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <pattern id="pl-fino" width="26" height="26" patternUnits="userSpaceOnUse">
+        <path d="M26 0H0v26" fill="none" stroke="#fff" stroke-width=".6"/>
+      </pattern>
+      <pattern id="pl-grueso" width="130" height="130" patternUnits="userSpaceOnUse">
+        <path d="M130 0H0v130" fill="none" stroke="#fff" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+    <rect class="rejilla-fina"   width="1600" height="900" fill="url(#pl-fino)"/>
+    <rect class="rejilla-gruesa" width="1600" height="900" fill="url(#pl-grueso)"/>
+
+    <g class="trazos" fill="none" stroke="#fff" stroke-width="1.1">
+      <rect x="190" y="200" width="560" height="420"/>
+      <rect x="214" y="224" width="512" height="372"/>
+      <path d="M470 224V596M214 430h512"/>
+      <path d="M190 680h560M190 664v32M470 664v32M750 664v32"/>
+      <path d="M120 200v420M104 200h32M104 620h32"/>
+      <circle cx="1180" cy="300" r="150"/>
+      <circle cx="1180" cy="300" r="92"/>
+      <path d="M1180 118v364M998 300h364"/>
+      <path d="M900 780a260 260 0 0 1 260-260"/>
+      <path d="M60 60L560 560M1540 840L1040 340" stroke-dasharray="14 10"/>
+      <path d="M960 620h520"/>
+      <path d="M40 40h60M40 40v60M1560 860h-60M1560 860v-60"/>
+    </g>
+
+    <g class="luces">
+      <path class="luz halo l1" d="M190 200h560v420H190z"/>
+      <path class="luz halo l2" d="M190 680h560"/>
+      <path class="luz halo l3" d="M1180 150a150 150 0 1 1-.2 0"/>
+      <path class="luz halo l4" d="M60 60L560 560"/>
+      <path class="luz halo l5" d="M960 620h520"/>
+      <path class="luz nucleo l1" d="M190 200h560v420H190z"/>
+      <path class="luz nucleo l2" d="M190 680h560"/>
+      <path class="luz nucleo l3" d="M1180 150a150 150 0 1 1-.2 0"/>
+      <path class="luz nucleo l4" d="M60 60L560 560"/>
+      <path class="luz nucleo l5" d="M960 620h520"/>
+    </g>
+  </svg>
+</div>
 
 <!-- ══════════ SVG compartidos: isologo y wordmark recreados de la marca ══════════ -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
