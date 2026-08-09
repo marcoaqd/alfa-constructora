@@ -66,26 +66,27 @@
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto}
     .reveal{opacity:1;transform:none;transition:none}
-    .plano .luces{display:none}
+    .plano .foco,.plano .revelado{display:none}
     *,*::before,*::after{animation:none !important;transition:none !important}
   }
 
-  /* ---------- fondo: hoja de planos ---------- */
+  /* ---------- fondo: hoja de planos revelada por una luz ---------- */
   .plano{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
   .plano svg{width:100%;height:100%;display:block}
-  .plano .rejilla-fina{opacity:.045}
-  .plano .rejilla-gruesa{opacity:.075}
-  .plano .trazos{opacity:.07}
-  .plano .luz{fill:none;stroke:var(--borgona-claro);stroke-linecap:round;
-    stroke-dasharray:160 2200;stroke-dashoffset:2360;
-    animation:pl-recorre 17s linear infinite}
-  .plano .halo{stroke-width:8;opacity:.14}
-  .plano .nucleo{stroke-width:1.6;opacity:.8}
-  .plano .l2{animation-duration:14s;animation-delay:-5s}
-  .plano .l3{animation-duration:23s;animation-delay:-9s}
-  .plano .l4{animation-duration:16s;animation-delay:-13s}
-  .plano .l5{animation-duration:20s;animation-delay:-3s}
-  @keyframes pl-recorre{from{stroke-dashoffset:2360}to{stroke-dashoffset:0}}
+  /* capa base: apenas insinuada */
+  .plano .rejilla-fina{opacity:.02}
+  .plano .rejilla-gruesa{opacity:.034}
+  .plano .trazos{stroke:#fff;opacity:.03}
+  /* la luz y lo que revela a su paso */
+  .plano .revelado{stroke:var(--borgona-claro);opacity:.7}
+  .plano .foco{animation:pl-deriva 72s ease-in-out infinite}
+  @keyframes pl-deriva{
+    0%   {transform:translate(250px,700px)}
+    22%  {transform:translate(1130px,250px)}
+    45%  {transform:translate(1420px,690px)}
+    68%  {transform:translate(620px,170px)}
+    100% {transform:translate(250px,700px)}
+  }
   main{position:relative;z-index:1}
 
   /* ---------- navegación ---------- */
@@ -339,12 +340,30 @@
       <pattern id="pl-grueso" width="130" height="130" patternUnits="userSpaceOnUse">
         <path d="M130 0H0v130" fill="none" stroke="#fff" stroke-width="1"/>
       </pattern>
-    </defs>
+      <pattern id="pl-fino-v" width="26" height="26" patternUnits="userSpaceOnUse">
+        <path d="M26 0H0v26" fill="none" stroke="#9E2A3D" stroke-width=".6"/>
+      </pattern>
+      <pattern id="pl-grueso-v" width="130" height="130" patternUnits="userSpaceOnUse">
+        <path d="M130 0H0v130" fill="none" stroke="#9E2A3D" stroke-width="1.1"/>
+      </pattern>
 
-    <rect class="rejilla-fina"   width="1600" height="900" fill="url(#pl-fino)"/>
-    <rect class="rejilla-gruesa" width="1600" height="900" fill="url(#pl-grueso)"/>
+      <radialGradient id="pl-foco">
+        <stop offset="0%"   stop-color="#fff" stop-opacity="1"/>
+        <stop offset="38%"  stop-color="#fff" stop-opacity=".6"/>
+        <stop offset="70%"  stop-color="#fff" stop-opacity=".17"/>
+        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+      </radialGradient>
+      <radialGradient id="pl-resplandor">
+        <stop offset="0%"   stop-color="#9E2A3D" stop-opacity=".10"/>
+        <stop offset="55%"  stop-color="#9E2A3D" stop-opacity=".035"/>
+        <stop offset="100%" stop-color="#9E2A3D" stop-opacity="0"/>
+      </radialGradient>
 
-    <g class="trazos" fill="none" stroke="#fff" stroke-width="1.1">
+      <mask id="pl-mascara">
+        <g class="foco"><circle r="480" fill="url(#pl-foco)"/></g>
+      </mask>
+
+      <g id="pl-trazos" fill="none" stroke-width="1.1">
       <rect x="190" y="200" width="560" height="420"/>
       <rect x="214" y="224" width="512" height="372"/>
       <path d="M470 224V596M214 430h512"/>
@@ -357,19 +376,22 @@
       <path d="M60 60L560 560M1540 840L1040 340" stroke-dasharray="14 10"/>
       <path d="M960 620h520"/>
       <path d="M40 40h60M40 40v60M1560 860h-60M1560 860v-60"/>
-    </g>
+      </g>
+    </defs>
 
-    <g class="luces">
-      <path class="luz halo l1" d="M190 200h560v420H190z"/>
-      <path class="luz halo l2" d="M190 680h560"/>
-      <path class="luz halo l3" d="M1180 150a150 150 0 1 1-.2 0"/>
-      <path class="luz halo l4" d="M60 60L560 560"/>
-      <path class="luz halo l5" d="M960 620h520"/>
-      <path class="luz nucleo l1" d="M190 200h560v420H190z"/>
-      <path class="luz nucleo l2" d="M190 680h560"/>
-      <path class="luz nucleo l3" d="M1180 150a150 150 0 1 1-.2 0"/>
-      <path class="luz nucleo l4" d="M60 60L560 560"/>
-      <path class="luz nucleo l5" d="M960 620h520"/>
+    <!-- hoja de planos, apenas insinuada -->
+    <rect class="rejilla-fina"   width="1600" height="900" fill="url(#pl-fino)"/>
+    <rect class="rejilla-gruesa" width="1600" height="900" fill="url(#pl-grueso)"/>
+    <use href="#pl-trazos" class="trazos"/>
+
+    <!-- la luz vino que deriva por la página -->
+    <g class="foco"><circle r="480" fill="url(#pl-resplandor)"/></g>
+
+    <!-- la geometría que la luz revela a su paso -->
+    <g class="revelado" mask="url(#pl-mascara)">
+      <rect width="1600" height="900" fill="url(#pl-fino-v)" opacity=".45"/>
+      <rect width="1600" height="900" fill="url(#pl-grueso-v)"/>
+      <use href="#pl-trazos"/>
     </g>
   </svg>
 </div>
