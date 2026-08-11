@@ -107,7 +107,7 @@
     .rv{opacity:1;transform:none;transition:none}
     .hero-slide{animation:none!important}
     .hero-slide:first-child{opacity:1!important}
-    .plano .foco,.plano .revelado,.marquesina-pista{animation:none!important}
+    .plano .foco,.plano .revelado,.marquesina-pista,.cinta-pista{animation:none!important}
     *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
   }
 
@@ -164,6 +164,27 @@
   .hero-puntos i:nth-child(3)::after{animation-delay:17s}
   .hero-puntos i:nth-child(4)::after{animation-delay:25.5s}
   @keyframes punto{0%{transform:scaleX(0)}25%{transform:scaleX(1)}25.01%,100%{transform:scaleX(0)}}
+
+  /* ══════════ CLIENTES ══════════ */
+  .confianza{background:var(--blanco);border-bottom:1px solid var(--linea-clara);
+             padding:clamp(28px,4vh,44px) 0;overflow:hidden}
+  .confianza .kicker{color:var(--borgona);margin-bottom:24px}
+  .confianza .kicker::before,.confianza .kicker::after{background:var(--borgona)}
+  .cinta{position:relative;overflow:hidden}
+  .cinta::before,.cinta::after{content:"";position:absolute;top:0;bottom:0;width:clamp(40px,8vw,110px);
+                               z-index:2;pointer-events:none}
+  .cinta::before{left:0;background:linear-gradient(90deg,var(--blanco),transparent)}
+  .cinta::after{right:0;background:linear-gradient(270deg,var(--blanco),transparent)}
+  .cinta-pista{display:flex;width:max-content;animation:desfila 48s linear infinite}
+  .cinta:hover .cinta-pista,.cinta:focus-within .cinta-pista{animation-play-state:paused}
+  .cinta-grupo{display:flex;align-items:center;gap:clamp(34px,5vw,72px);padding-right:clamp(34px,5vw,72px)}
+  .cliente-logo{height:clamp(34px,3.4vw,46px);width:auto;opacity:.6;transition:opacity var(--dur)}
+  .cliente-logo:hover{opacity:1}
+  .cliente-txt{font-size:clamp(11px,1.05vw,13px);letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+               color:var(--tinta-suave);opacity:.75;white-space:nowrap;text-align:center;line-height:1.35;
+               transition:opacity var(--dur)}
+  .cliente-txt:hover{opacity:1}
+  @keyframes desfila{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ══════════ CIFRAS ══════════ */
   .cifras{background:var(--hueso);border-bottom:1px solid var(--linea-clara)}
@@ -454,6 +475,39 @@
     <div class="wrap hero-puntos" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   </section>
 
+  <!-- ══════════ CLIENTES ══════════ -->
+  <section class="confianza" aria-labelledby="t-conf">
+    <p class="kicker centro" id="t-conf">Han confiado en nosotros</p>
+    <div class="cinta">
+      <div class="cinta-pista">
+      <div class="cinta-grupo">
+        <img class="cliente-logo" src="assets/clientes/banco-nacional.png" alt="Banco Nacional de Costa Rica" width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/ccss.png" alt="Caja Costarricense de Seguro Social" width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/ins.png" alt="Instituto Nacional de Seguros" width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/poder-judicial.png" alt="Poder Judicial de Costa Rica" width="460" height="124" loading="lazy">
+        <span class="cliente-txt">Correos de<br>Costa Rica</span>
+        <span class="cliente-txt">Municipalidad<br>de Alajuela</span>
+        <span class="cliente-txt">Municipalidad<br>de Santa Ana</span>
+        <span class="cliente-txt">Municipalidad<br>de San José</span>
+        <span class="cliente-txt">CNFL</span>
+        <span class="cliente-txt">AM / PM</span>
+      </div>
+      <div class="cinta-grupo" aria-hidden="true">
+        <img class="cliente-logo" src="assets/clientes/banco-nacional.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/ccss.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/ins.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/poder-judicial.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
+        <span class="cliente-txt">Correos de<br>Costa Rica</span>
+        <span class="cliente-txt">Municipalidad<br>de Alajuela</span>
+        <span class="cliente-txt">Municipalidad<br>de Santa Ana</span>
+        <span class="cliente-txt">Municipalidad<br>de San José</span>
+        <span class="cliente-txt">CNFL</span>
+        <span class="cliente-txt">AM / PM</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════ CIFRAS ══════════ -->
   <section class="cifras claro" aria-label="Cifras de la empresa">
     <div class="wrap">
@@ -637,17 +691,6 @@
         </div>
       </div>
 
-      <div class="clientes rv">
-        <p class="kicker centro">Han confiado en nosotros</p>
-        <div class="clientes-fila">
-          <div class="cliente">Logo cliente</div>
-          <div class="cliente">Logo cliente</div>
-          <div class="cliente">Logo cliente</div>
-          <div class="cliente">Logo cliente</div>
-          <div class="cliente">Logo cliente</div>
-        </div>
-        <p class="nota">Logos de clientes pendientes de recibir.</p>
-      </div>
     </div>
   </section>
 
