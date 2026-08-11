@@ -880,27 +880,57 @@
     if (e.key === 'Escape' && links.classList.contains('abierto')) { cerrar(); tog.focus(); }
   });
 
-  /* contadores */
-  const contar = el => {
+  /* contadores: disparo propio, cuando la barra ya está a la vista de verdad */
+  const contar = (el, retraso = 0) => {
+    if (el.dataset.listo) return;
+    el.dataset.listo = '1';
     const hasta = parseFloat(el.dataset.hasta);
     const unidad = el.dataset.unidad ? `<span class="u">${el.dataset.unidad}</span>` : '';
-    if (sinMovimiento) { el.innerHTML = hasta.toLocaleString('es-CR') + unidad; return; }
-    const dur = 1500, t0 = performance.now();
+    const pintar = v => { el.innerHTML = v.toLocaleString('es-CR') + unidad; };
+    if (sinMovimiento) { pintar(hasta); return; }
+    const dur = 2000;
+    let t0 = null;
     const paso = t => {
+      if (t0 === null) t0 = t;
       const p = Math.min((t - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - p, 3);
-      el.innerHTML = Math.round(hasta * e).toLocaleString('es-CR') + unidad;
+      pintar(Math.round(hasta * (1 - Math.pow(1 - p, 3))));
       if (p < 1) requestAnimationFrame(paso);
     };
-    requestAnimationFrame(paso);
+    setTimeout(() => requestAnimationFrame(paso), retraso);
   };
+
+  // cada tarjeta decide por su cuenta: en escritorio van en fila y arrancan
+  // juntas; apiladas en móvil, cada una arranca cuando llega a pantalla.
+  const tarjetas = [...document.querySelectorAll('.cifra')];
+  if (tarjetas.length) {
+    const revisar = () => {
+      let pendientes = false;
+      tarjetas.forEach((t, i) => {
+        const v = t.querySelector('.val[data-hasta]');
+        if (!v || v.dataset.listo) return;
+        const r = t.getBoundingClientRect();
+        if (r.top < innerHeight * .85 && r.bottom > innerHeight * .15) contar(v, i * 120);
+        else pendientes = true;
+      });
+      if (!pendientes) {
+        removeEventListener('scroll', revisar);
+        removeEventListener('resize', revisar);
+      }
+    };
+    if (sinMovimiento) {
+      document.querySelectorAll('.val[data-hasta]').forEach(v => contar(v));
+    } else {
+      addEventListener('scroll', revisar, {passive:true});
+      addEventListener('resize', revisar, {passive:true});
+      revisar();
+    }
+  }
 
   /* revelado + disparo de contadores y pasos */
   const revelables = document.querySelectorAll('.rv');
   if (sinMovimiento || !('IntersectionObserver' in window)) {
     revelables.forEach(el => el.classList.add('on'));
     document.querySelectorAll('.paso').forEach(p => p.classList.add('on'));
-    document.querySelectorAll('.val[data-hasta]').forEach(contar);
   } else {
     const io = new IntersectionObserver((entradas, obs) => {
       entradas.forEach(en => {
@@ -909,7 +939,6 @@
         const hermanos = [...el.parentElement.children].filter(h => h.classList.contains('rv'));
         el.style.transitionDelay = Math.min(hermanos.indexOf(el), 5) * 90 + 'ms';
         el.classList.add('on');
-        el.querySelectorAll?.('.val[data-hasta]').forEach(contar);
         if (el.classList.contains('paso')) {
           setTimeout(() => el.classList.add('on'), hermanos.indexOf(el) * 220 + 200);
         }
