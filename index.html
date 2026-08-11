@@ -178,12 +178,10 @@
   .cinta-pista{display:flex;width:max-content;animation:desfila 48s linear infinite}
   .cinta:hover .cinta-pista,.cinta:focus-within .cinta-pista{animation-play-state:paused}
   .cinta-grupo{display:flex;align-items:center;gap:clamp(34px,5vw,72px);padding-right:clamp(34px,5vw,72px)}
-  .cliente-logo{height:clamp(34px,3.4vw,46px);width:auto;opacity:.6;transition:opacity var(--dur)}
-  .cliente-logo:hover{opacity:1}
+  .cliente-logo{height:clamp(40px,4vw,58px);width:auto;transition:transform var(--dur) var(--ease)}
+  .cliente-logo:hover{transform:scale(1.06)}
   .cliente-txt{font-size:clamp(11px,1.05vw,13px);letter-spacing:.14em;text-transform:uppercase;font-weight:600;
-               color:var(--tinta-suave);opacity:.75;white-space:nowrap;text-align:center;line-height:1.35;
-               transition:opacity var(--dur)}
-  .cliente-txt:hover{opacity:1}
+               color:var(--tinta);white-space:nowrap;text-align:center;line-height:1.35}
   @keyframes desfila{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ══════════ CIFRAS ══════════ */
@@ -481,28 +479,28 @@
     <div class="cinta">
       <div class="cinta-pista">
       <div class="cinta-grupo">
-        <img class="cliente-logo" src="assets/clientes/banco-nacional.png" alt="Banco Nacional de Costa Rica" width="460" height="124" loading="lazy">
-        <img class="cliente-logo" src="assets/clientes/ccss.png" alt="Caja Costarricense de Seguro Social" width="460" height="124" loading="lazy">
-        <img class="cliente-logo" src="assets/clientes/ins.png" alt="Instituto Nacional de Seguros" width="460" height="124" loading="lazy">
-        <img class="cliente-logo" src="assets/clientes/poder-judicial.png" alt="Poder Judicial de Costa Rica" width="460" height="124" loading="lazy">
+        <img class="cliente-logo" src="assets/clientes/banco-nacional.png" alt="Banco Nacional de Costa Rica" width="460" height="124" loading="lazy" decoding="async">
         <span class="cliente-txt">Correos de<br>Costa Rica</span>
+        <img class="cliente-logo" src="assets/clientes/ccss.png" alt="Caja Costarricense de Seguro Social" width="460" height="124" loading="lazy" decoding="async">
         <span class="cliente-txt">Municipalidad<br>de Alajuela</span>
-        <span class="cliente-txt">Municipalidad<br>de Santa Ana</span>
+        <img class="cliente-logo" src="assets/clientes/poder-judicial.png" alt="Poder Judicial de Costa Rica" width="460" height="124" loading="lazy" decoding="async">
         <span class="cliente-txt">Municipalidad<br>de San José</span>
+        <img class="cliente-logo" src="assets/clientes/ins.png" alt="Instituto Nacional de Seguros" width="460" height="124" loading="lazy" decoding="async">
         <span class="cliente-txt">CNFL</span>
-        <span class="cliente-txt">AM / PM</span>
+        <img class="cliente-logo" src="assets/clientes/ampm.png" alt="AM/PM" width="460" height="124" loading="lazy" decoding="async">
+        <span class="cliente-txt">Municipalidad<br>de Santa Ana</span>
       </div>
       <div class="cinta-grupo" aria-hidden="true">
-        <img class="cliente-logo" src="assets/clientes/banco-nacional.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
-        <img class="cliente-logo" src="assets/clientes/ccss.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
-        <img class="cliente-logo" src="assets/clientes/ins.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
-        <img class="cliente-logo" src="assets/clientes/poder-judicial.png" alt="" aria-hidden='true' width="460" height="124" loading="lazy">
-        <span class="cliente-txt">Correos de<br>Costa Rica</span>
-        <span class="cliente-txt">Municipalidad<br>de Alajuela</span>
-        <span class="cliente-txt">Municipalidad<br>de Santa Ana</span>
-        <span class="cliente-txt">Municipalidad<br>de San José</span>
-        <span class="cliente-txt">CNFL</span>
-        <span class="cliente-txt">AM / PM</span>
+        <img class="cliente-logo" src="assets/clientes/banco-nacional.png" alt="" aria-hidden="true" width="460" height="124" loading="lazy" decoding="async">
+        <span class="cliente-txt" aria-hidden="true">Correos de<br>Costa Rica</span>
+        <img class="cliente-logo" src="assets/clientes/ccss.png" alt="" aria-hidden="true" width="460" height="124" loading="lazy" decoding="async">
+        <span class="cliente-txt" aria-hidden="true">Municipalidad<br>de Alajuela</span>
+        <img class="cliente-logo" src="assets/clientes/poder-judicial.png" alt="" aria-hidden="true" width="460" height="124" loading="lazy" decoding="async">
+        <span class="cliente-txt" aria-hidden="true">Municipalidad<br>de San José</span>
+        <img class="cliente-logo" src="assets/clientes/ins.png" alt="" aria-hidden="true" width="460" height="124" loading="lazy" decoding="async">
+        <span class="cliente-txt" aria-hidden="true">CNFL</span>
+        <img class="cliente-logo" src="assets/clientes/ampm.png" alt="" aria-hidden="true" width="460" height="124" loading="lazy" decoding="async">
+        <span class="cliente-txt" aria-hidden="true">Municipalidad<br>de Santa Ana</span>
       </div>
       </div>
     </div>
