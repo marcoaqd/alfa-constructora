@@ -197,6 +197,24 @@ Detalle de R-12 (ganador):
   competidor.
 - **Producción:** `python3 -I forecast/src/05_pronosticar.py --data-nuevo <archivo> [--modo una-vez|rodante]`.
 
+### Dataset externo recibido (`data/reto1_validacion_equipos.xlsx`)
+- **Contenido** (verificado):
+  - Hoja `Datos_validacion`: 61 filas, 1-may → 30-jun, **sin `unidades_vendidas`**. Las ventas
+    reales las tiene el facilitador.
+  - Hoja `Pronostico`: plantilla a llenar.
+- **Las 20 columnas son idénticas al 100 % a nuestras filas de may–jun** de
+  `reto1_dataset.xlsx`, que ya traen las ventas reales.
+- **R-13 (veto de QA por leakage):** para este archivo se entrena **solo hasta el 30-abr**
+  (120 días). Entrenar con los 181 días incluiría las ventas del periodo evaluado. El pipeline
+  ahora excluye automáticamente de la historia toda fecha ≥ la primera fecha del archivo.
+- **Pronóstico generado** (P50 y P75, modo una vez, h = 1..61):
+  `reportes/05_salidas/pronostico_reto1_validacion_equipos.xlsx` y `.csv`.
+- **Lectura honesta:**
+  - La prueba equivalente (entrenar hasta el 30-abr y pronosticar may–jun) dio WAPE P50 de
+    8,7 % sobre la venta observada y pérdida 3:1 del P75 de 12,5 % en días sin quiebre.
+  - Esa cifra es **optimista**: may–jun se usó para seleccionar variables y modelo (hallazgo 2
+    de QA y torneo). No se tomó ninguna decisión adicional mirando may–jun.
+
 ### Decisiones pendientes del usuario
 
 **D-08 · ¿Cuál es la razón de costo sub:sobre (quedarse corto frente a pasarse)?**
@@ -214,59 +232,66 @@ Detalle de R-12 (ganador):
   inventario. Riesgo bajo, porque entre 3:1 y 5:1 la curva es plana.
 - *Por defecto:* 3:1 → P75.
 
-**D-09 · ¿Cómo se usará el dataset externo?**
-- A) **Pronóstico de una vez:** el modelo de 181 días pronostica todo el archivo.
-  - Prueba hecha (may–jun, 61 días): 3:1 de 12,5 %, cobertura 69 %, faltante 2,1 %.
-  - Riesgo: el horizonte supera 7 días y la distribución queda congelada al 30-jun.
-- B) **Rodante semanal:** se re-entrena cada 7 días con los reales del archivo.
-  - Misma prueba: 3:1 de 12,6 %, cobertura 74 %, faltante 1,45 %.
-  - Es consistente con D-01, pero requiere que el archivo traiga `unidades_vendidas` y
-    `quiebre_stock_pct`.
-- *Recomendación:* B como cifra oficial y A como prueba de estrés. QA y SC coinciden.
-  Confirmar también que el archivo es el mismo cliente/SKU y un periodo posterior.
-- *Por defecto:* se corren los dos modos. La cifra oficial es la del modo rodante si el archivo
-  trae ventas; si no, la de una vez.
-
-**D-10 · ¿La `distribucion_numerica` del archivo externo es un plan conocido de antemano o un
-dato observado después?**
-- A) Observado después → se mantiene D-05 (último valor) y se emite una alerta si difiere en
-  más de 0,02.
-- B) Plan conocido → se usa el valor del archivo. Es ex ante legítimo y evita el sesgo.
-- Impacto: +0,10 de distribución equivale a +28 % de demanda. En la prueba in-sample,
-  congelar 0,914 sobre ene–feb (0,84) dio un bias de **+9,6 %**.
-- *Recomendación:* B si existe un plan de listados (SC). QA exige que sea un plan y no un dato
-  realizado.
-- *Por defecto:* A (D-05).
-
-**D-11 · ¿Con qué frecuencia se repone (diaria o semanal) y con qué lead time?**
-- A) Diaria → P75 diario (lo actual).
-- B) Semanal → el P75 se calibra sobre la suma de 7 días. Sumar 7 P75 diarios sobreprotege:
-  cubre el 82 % de las semanas con 5,7 % de sobrante (SC, reporte 02).
-- *Recomendación:* depende de la operación. Es un cambio menor en el pipeline.
+**D-09 · ¿Cómo se pronostica el archivo externo?**
+- A) **Una vez, entrenando hasta el 30-abr** (hecho). El horizonte va de 1 a 61 días, por
+  encima de D-01, y la distribución queda congelada.
+- B) **Rodante semanal:** re-entrenar cada 7 días reconstruyendo las ventas de la semana previa
+  desde `ventas_hace_7_dias`. Esa columna no es gris en el archivo y es válida con h = 7.
+  - Es consistente con D-01.
+  - En nuestra prueba dio una precisión equivalente (WAPE 8,9 % frente a 8,7 %), pero mejor
+    cobertura del P75 (74 % frente a 69 %) y menos faltante (1,45 % frente a 2,1 %).
+  - Requiere un cambio menor en el pipeline.
+- C) Entrenar con los 181 días → **vetado por QA** (leakage).
+- *Recomendación:* A como entrega, por ser la más estricta y no requerir supuestos sobre las
+  reglas del ejercicio. B si el facilitador acepta usar `ventas_hace_7_dias` para
+  re-entrenar. SC prefiere B porque así operaría en la realidad.
 - *Por defecto:* A.
 
-**D-12 · ¿El plan de exhibición está en firme 7 días antes y se cumple?**
-- Impacto: +14 % por día con exhibición. Si no se ejecuta, el P50 sobreestima y si se ejecuta
-  sin aviso, lo subestima. Quitar la variable cuesta +1,2 pp (QA, no significativo).
-- *Recomendación:* mantenerla si está en firme. Si no, usar el plan vigente al origen.
-- *Por defecto:* plan = ejecución.
+**D-10 · ¿Qué columna se entrega al facilitador y cómo se declaran las variables?**
+- A) **P50.** Maximiza la "accuracy" simétrica que probablemente calcula el facilitador.
+- B) **P75.** Coherente con D-04, pero sesga +5–7 % y empeora el WAPE.
+- Declaración:
+  - Variables: `promo_pct, exhibicion, dia_semana, distribucion_numerica` (4).
+  - `quiebre_stock_pct` (gris) **no se usa al pronosticar** (se fija en 0); solo se usa para
+    des-censurar la historia de entrenamiento.
+- *Recomendación:* A para la entrega y P75 para reposición. Declarar "no" a variables grises
+  como entrada, con la nota sobre el des-censurado del entrenamiento. QA pide transparencia
+  total en esa nota.
+- *Por defecto:* P50, con la nota.
 
-*Sigue pendiente D-07* (descuentos > 30 %): por defecto se recorta a 30 % y se emite una
-alerta. El pipeline ya lo aplica.
+**D-11 · Distribución numérica: ¿último valor (D-05) o el valor del archivo como plan?**
+- En el archivo, `distribucion_numerica` **no es gris**: el ejercicio la considera conocida de
+  antemano.
+- Impacto en este archivo: +0,54 % en el total del P50 (may–jun es estable). En otros periodos
+  puede ser grande: +0,10 de distribución equivale a +28 %, y la prueba in-sample con un valor
+  congelado dio un bias de +9,6 %.
+- *Recomendación:* usar el valor del archivo si es un plan (`--distribucion archivo`), en línea
+  con SC. QA acepta si se recorta al rango de entrenamiento, y el pipeline ya lo hace.
+- *Por defecto:* D-05 (último valor).
+
+**D-12 · ¿Con qué frecuencia se repone (diaria o semanal)?**
+- Si es semanal, el P75 debe calibrarse sobre la suma de 7 días. Sumar 7 P75 diarios cubre el
+  82 % de las semanas con 5,7 % de sobrante (SC, reporte 02).
+- *Por defecto:* diaria.
+
+*Otras preguntas abiertas con supuesto por defecto:*
+- D-07 (descuentos > 30 %): se recorta a 30 % y se emite una alerta.
+- ¿La exhibición está en firme 7 días antes? Se asume plan = ejecución.
 
 ### Respuestas del usuario (iteración 2)
 | ID | Decisión del usuario | Estado |
 |---|---|---|
-| D-08 | — | pendiente (por defecto 3:1) |
-| D-09 | — | pendiente (por defecto ambos modos; oficial = rodante si hay ventas) |
-| D-10 | — | pendiente (por defecto D-05) |
-| D-11 | — | pendiente (por defecto diaria) |
-| D-12 | — | pendiente (por defecto plan = ejecución) |
+| D-08 | — | pendiente (por defecto 3:1 → P75) |
+| D-09 | — | pendiente (por defecto una vez desde el 30-abr; ya generado) |
+| D-10 | — | pendiente (por defecto entregar P50, con nota de variables) |
+| D-11 | — | pendiente (por defecto último valor, D-05) |
+| D-12 | — | pendiente (por defecto reposición diaria) |
 
 ### Próximos pasos
 1. QA revisa `04_torneo_modelos.py`, `modelos_torneo.py` y `05_pronosticar.py`.
-2. Al llegar el dataset externo:
-   - correr `05_pronosticar.py` en los modos que defina D-09;
-   - reportar la pérdida 3:1, el WAPE (observado y sin quiebre) y la cobertura;
-   - reevaluar promo² y C4 **sin** re-seleccionar sobre ese mismo archivo.
-3. Agregar `forecast/requirements.txt` con las versiones fijadas (hallazgo 15 de QA).
+2. Con D-09 y D-10 decididas, llenar la hoja `Pronostico` en una **copia** de
+   `reto1_validacion_equipos.xlsx`. El original no se modifica.
+3. Si D-09 = B, implementar la reconstrucción de ventas desde `ventas_hace_7_dias` en el modo
+   rodante.
+4. Reevaluar promo² y la variante C4 solo con datos nuevos (no con may–jun).
+5. Agregar `forecast/requirements.txt` con las versiones fijadas (hallazgo 15 de QA).

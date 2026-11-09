@@ -22,7 +22,9 @@ rodante  simula la operación semanal: para cada bloque de 7 filas del archivo, 
 Uso
 ---
 python3 -I forecast/src/05_pronosticar.py --data-nuevo externo.xlsx [--modo una-vez|rodante]
-    [--data historia.xlsx] [--entrenar-hasta AAAA-MM-DD] [--ganador ganador.json] [--out carpeta]
+    [--data historia.xlsx] [--entrenar-hasta AAAA-MM-DD] [--distribucion ultimo|archivo]
+    [--ganador ganador.json] [--out carpeta]
+La historia se corta automáticamente antes de la primera fecha del archivo (anti-leakage).
 Código de salida 2 si la validación encuentra ERRORES (no se pronostica).
 """
 from __future__ import annotations
@@ -49,11 +51,20 @@ PROMO_MAX = 0.30
 H = 7
 
 
-def leer(path: Path, hoja: str) -> pd.DataFrame:
+def leer(path: Path, hoja: str | None) -> pd.DataFrame:
+    """Lee CSV o Excel. Si `hoja` no existe, usa la primera hoja que tenga `fecha` y `promo_pct`
+    (p. ej. `Datos_validacion` en el archivo de validación del reto)."""
     if path.suffix.lower() == ".csv":
         return pd.read_csv(path)
-    hojas = pd.ExcelFile(path).sheet_names
-    return pd.read_excel(path, sheet_name=hoja if hoja in hojas else hojas[0])
+    x = pd.ExcelFile(path)
+    if hoja in x.sheet_names:
+        return pd.read_excel(x, sheet_name=hoja)
+    for h in x.sheet_names:
+        cols = pd.read_excel(x, sheet_name=h, nrows=0).columns
+        if {"fecha", "promo_pct"} <= set(cols):
+            print(f"Hoja '{hoja}' no encontrada en {path.name}; se usa '{h}'")
+            return pd.read_excel(x, sheet_name=h)
+    raise ValueError(f"{path} no tiene una hoja con columnas 'fecha' y 'promo_pct'")
 
 
 class Modelo:
@@ -115,6 +126,9 @@ def main() -> int:
     ap.add_argument("--data-nuevo", type=Path, required=True, help="Excel/CSV externo (mismo esquema)")
     ap.add_argument("--data", type=Path, default=DEFAULT_DATA, help="historia para entrenar")
     ap.add_argument("--hoja", default="Datos_completos")
+    ap.add_argument("--distribucion", choices=["ultimo", "archivo"], default="ultimo",
+                    help="ultimo = último valor observado (D-05, defecto); archivo = valor del archivo "
+                         "como plan conocido (D-10 opción B), recortado al rango de entrenamiento")
     ap.add_argument("--modo", choices=["una-vez", "rodante"], default="una-vez")
     ap.add_argument("--entrenar-hasta", default=None, help="corta la historia en esa fecha (pruebas)")
     ap.add_argument("--ganador", type=Path, default=GANADOR_DEF)
@@ -136,6 +150,22 @@ def main() -> int:
     if a.entrenar_hasta:
         hist = hist[hist[FECHA] <= pd.Timestamp(a.entrenar_hasta)].reset_index(drop=True)
     crudo = leer(a.data_nuevo, a.hoja)
+    if a.distribucion == "archivo":
+        esc.ultimo_valor = [c for c in esc.ultimo_valor if c != "distribucion_numerica"]
+        esc.recortar = {**esc.recortar, "distribucion_numerica": (float(hist["distribucion_numerica"].min()),
+                                                                   float(hist["distribucion_numerica"].max()))}
+    # Anti-leakage (QA): nunca entrenar con fechas que se van a pronosticar.
+    avisos = []
+    if FECHA in crudo:
+        f0 = pd.to_datetime(crudo[FECHA], errors="coerce").min()
+        solap = int((hist[FECHA] >= f0).sum()) if pd.notna(f0) else 0
+        if solap:
+            hist = hist[hist[FECHA] < f0].reset_index(drop=True)
+            avisos.append(["ALERTA", FECHA, f"se excluyeron {solap} días de la historia con fecha >= {f0.date()} "
+                           "(se solapan con el archivo a pronosticar; anti-leakage)"])
+    if len(hist) < 63:
+        print(f"ERROR: historia de entrenamiento insuficiente ({len(hist)} días < 63)")
+        return 2
     print(f"Modelo: {spec.nombre} | features: {feats} | modo: {a.modo}")
     print(f"Historia: {len(hist)} días ({hist[FECHA].min().date()}..{hist[FECHA].max().date()}) | "
           f"archivo nuevo: {len(crudo)} filas")
@@ -152,13 +182,10 @@ def main() -> int:
     H_ = validar_entrada(crudo, requeridas + opcionales, referencia=hist,
                          con_objetivo=(a.modo == "rodante") or tiene_y)
     hal = hallazgos_df(H_)
+    for av in avisos:
+        hal.loc[len(hal)] = av
     if FECHA in crudo:
         f = pd.to_datetime(crudo[FECHA], errors="coerce")
-        solap = f.isin(hist[FECHA]).sum()
-        if solap:
-            nivel = "ERROR" if a.modo == "rodante" else "ALERTA"
-            hal.loc[len(hal)] = [nivel, FECHA, f"{solap} fechas ya están en la historia de entrenamiento "
-                                 "(pronóstico in-sample; usar --entrenar-hasta para evaluar fuera de muestra)"]
         gap = (f.min() - hist[FECHA].max()).days if f.notna().any() else 1
         if gap > 1:
             hal.loc[len(hal)] = ["ALERTA", FECHA, f"el archivo empieza {gap} días después del último dato "
@@ -224,9 +251,9 @@ def main() -> int:
     # ---------------------------------------------------------------- salida
     met = metricas_eval(out) if tiene_y else pd.DataFrame()
     info = pd.DataFrame({"clave": ["modelo", "modo", "costo_sub:sobre", "entrenamiento_hasta", "n_entrenamiento",
-                                   "factor_P75 (último ajuste)", "features", "escenario"],
+                                   "factor_P75 (último ajuste)", "features", "escenario", "distribucion"],
                          "valor": [spec.nombre, a.modo, f"{CS}:{CO}", str(hist[FECHA].max().date()), len(hist),
-                                   modelo.factor_, ", ".join(feats), repr(esc)]})
+                                   modelo.factor_, ", ".join(feats), repr(esc), a.distribucion]})
     xlsx = a.out / f"pronostico_{stem}.xlsx"
     with pd.ExcelWriter(xlsx) as w:
         out.to_excel(w, sheet_name="pronostico", index=False)

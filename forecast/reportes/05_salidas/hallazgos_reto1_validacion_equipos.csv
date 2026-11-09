@@ -1,0 +1,3 @@
+nivel,columna,mensaje
+ALERTA,distribucion_numerica,drift PSI=3.35 (> 0.25)
+ALERTA,fecha,se excluyeron 61 días de la historia con fecha >= 2026-05-01 (se solapan con el archivo a pronosticar; anti-leakage)
