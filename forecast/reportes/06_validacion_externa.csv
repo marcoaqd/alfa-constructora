@@ -1,0 +1,8 @@
+modelo,WAPE,bias,costo31
+L1 des-censurado (ganador torneo),8.77,0.61,16.93
+"L1 des-censurado (ganador torneo) ×1,065 (P75)",10.71,7.15,14.26
+L2 + promo² ,8.74,1.17,16.32
+"L2 + promo²  ×1,065 (P75)",10.79,7.74,13.83
+L5 des-censurado + promo²,8.78,1.43,16.12
+"L5 des-censurado + promo² ×1,065 (P75)",11.0,8.02,13.99
+L1 × (1−quiebre real) [usa var. gris],7.15,-1.28,15.58
