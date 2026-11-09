@@ -63,6 +63,17 @@ Revisión de `experto-supply-chain-forecasting` y `qa-generalizacion`: pendiente
 - *Por defecto:* se limita el descuento al 30 % y se avisa si llega uno mayor; medios queda
   fuera del modelo.
 
+### Respuestas del usuario (2026-11-09)
+| ID | Decisión del usuario | Implicación para el modelo |
+|---|---|---|
+| D-01 | Horizonte de **7 días** | Solo valen variables conocidas 7 días antes. Un rezago de venta solo es válido si es ≥ 7 días (por revisar si y(t−7) ya está disponible al pronosticar). |
+| D-02 | Promo del competidor **no** se conoce de antemano | `promo_competidor` y `precio_competidor` salen del modelo como variables de entrada. |
+| D-03 | Pronosticar **demanda total** | `quiebre_stock_pct` se usa solo al entrenar como control y se pone en 0 al pronosticar. |
+| D-04 | **Quedarse corto es peor**, porque genera quiebre de stock | Costo asimétrico: además del WAPE se penaliza el sub-pronóstico (bias negativo, pérdida asimétrica). |
+| D-05 | Distribución numérica: se **mantiene el último valor** | Al pronosticar se usa el último valor observado de `distribucion_numerica`. |
+| D-06 | `codigo_region`: **no se sabe** qué representa | Se excluye. El pipeline debe tolerar regiones nuevas en el dataset externo. |
+| D-07 | Sin respuesta | Supuesto por defecto: descuento máximo 30 % con alerta si se supera; medios fuera del modelo. |
+
 ### Próximos pasos (iteración 2)
 1. `experto-supply-chain-forecasting` revisa la lista de variables y D-01 a D-07.
 2. `qa-generalizacion` hace el backtesting con ventana rodante, revisa la estabilidad y
