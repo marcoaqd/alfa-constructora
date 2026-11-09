@@ -1,0 +1,89 @@
+conjunto,modelo,variable,dMAE_media,dMAE_sd,dMAE_%
+NÚCLEO (quiebre real),Ridge_logy,promo_pct,493.90909923830384,67.5162079515021,429.7421131065011
+NÚCLEO (quiebre real),Ridge_logy,quiebre_stock_pct,61.73117816908879,11.986573093494753,53.71127398108234
+NÚCLEO (quiebre real),Ridge_logy,dia_semana,55.18313440831712,11.567907921276348,48.01392973938382
+NÚCLEO (quiebre real),Ridge_logy,exhibicion,40.72744583610549,11.875424461024624,35.4362749381014
+NÚCLEO (quiebre real),Ridge_logy,promo_competidor,26.886770547883717,4.722269567465424,23.393732991913094
+NÚCLEO (quiebre real),Ridge_logy,distribucion_numerica,0.7908152446533692,1.901275152450947,0.6880752244457082
+NÚCLEO (quiebre real),Ridge_logy,dia_quincena,-0.7207789179753187,2.9625453255653804,-0.6271377785325666
+NÚCLEO (quiebre real),GradBoosting,promo_pct,493.2603625770667,68.32301190153598,307.9075940415282
+NÚCLEO (quiebre real),GradBoosting,exhibicion,49.26443792509925,14.347378636088076,30.75230791721188
+NÚCLEO (quiebre real),GradBoosting,quiebre_stock_pct,39.2056118771951,8.105925305778246,24.47329350155727
+NÚCLEO (quiebre real),GradBoosting,dia_semana,25.858117390198956,6.924470326413465,16.141395733608327
+NÚCLEO (quiebre real),GradBoosting,promo_competidor,9.460077884610902,3.4228280438807634,5.905258240653614
+NÚCLEO (quiebre real),GradBoosting,distribucion_numerica,2.1816094657118117,7.199069861242643,1.3618246522303858
+NÚCLEO (quiebre real),GradBoosting,dia_quincena,-1.6047673014760364,5.4082470263596125,-1.0017428447168226
+TODO sin facturado (incl. t-7),Ridge_logy,promo_pct,158.3227441645081,18.015703732819812,123.41158538981591
+TODO sin facturado (incl. t-7),Ridge_logy,precio,144.168893201141,21.589218622104003,112.37874739816694
+TODO sin facturado (incl. t-7),Ridge_logy,indice_precio_relativo,68.08957240902542,16.168810135089355,53.07539433993869
+TODO sin facturado (incl. t-7),Ridge_logy,quiebre_stock_pct,55.835133742852925,12.376590710020839,43.523136312606965
+TODO sin facturado (incl. t-7),Ridge_logy,dia_semana,51.84447871291066,10.783380782666994,40.41244576345072
+TODO sin facturado (incl. t-7),Ridge_logy,exhibicion,41.64224337521783,10.972492265717932,32.459867350355424
+TODO sin facturado (incl. t-7),Ridge_logy,ventas_mismo_dia_anio_anterior,1.7991100001874338,2.916326577272083,1.4023949533308864
+TODO sin facturado (incl. t-7),Ridge_logy,inversion_medios_usd,0.46927325454155994,0.47728012256610375,0.3657955565994751
+TODO sin facturado (incl. t-7),Ridge_logy,inflacion_mensual_pct,0.4561361040118911,1.6573515061919386,0.35555523021474245
+TODO sin facturado (incl. t-7),Ridge_logy,temperatura_c,0.21083381163071427,1.1283843134241152,0.16434363290272683
+TODO sin facturado (incl. t-7),Ridge_logy,confianza_consumidor,0.1867254906741948,0.22536800878937305,0.14555134802899383
+TODO sin facturado (incl. t-7),Ridge_logy,precio_competidor,-0.14068722676397272,0.04572827296557241,-0.1096648102624956
+TODO sin facturado (incl. t-7),Ridge_logy,grp_tv,-0.7007193109703707,2.975283068274366,-0.5462063049529858
+TODO sin facturado (incl. t-7),Ridge_logy,dia_quincena,-1.6868181270619862,3.689783507302154,-1.3148641430108985
+TODO sin facturado (incl. t-7),Ridge_logy,ventas_hace_7_dias,-2.060677568410718,1.7993345613794995,-1.6062852310755216
+TODO sin facturado (incl. t-7),Ridge_logy,distribucion_numerica,-2.8126754329753028,2.2381549089774198,-2.192462846713869
+TODO sin facturado (incl. t-7),Ridge_logy,promo_competidor,-3.670408469002398,2.3051957446952587,-2.8610603648779946
+TODO sin facturado (incl. t-7),Ridge_logy,codigo_region,-5.123855643446504,2.7482919881494463,-3.9940133150372943
+TODO sin facturado (incl. t-7),GradBoosting,indice_precio_relativo,202.36119732263742,40.91175834994284,115.53162616210558
+TODO sin facturado (incl. t-7),GradBoosting,precio,106.58856761016487,19.529496926756632,60.85331925892059
+TODO sin facturado (incl. t-7),GradBoosting,promo_pct,46.67261247350197,12.271304353050082,26.64622905793735
+TODO sin facturado (incl. t-7),GradBoosting,quiebre_stock_pct,38.99214418014852,8.106649408108009,22.26131236759539
+TODO sin facturado (incl. t-7),GradBoosting,exhibicion,24.416387056044705,14.543935253766309,13.939751982642921
+TODO sin facturado (incl. t-7),GradBoosting,dia_semana,11.099291518556837,3.3314317910531797,6.3367840047993695
+TODO sin facturado (incl. t-7),GradBoosting,ventas_mismo_dia_anio_anterior,5.833430086821194,3.7238501589412305,3.3304095496079245
+TODO sin facturado (incl. t-7),GradBoosting,temperatura_c,5.3464524181747075,5.06603706337233,3.0523852904726194
+TODO sin facturado (incl. t-7),GradBoosting,grp_tv,3.2769966519776443,1.2771311113184665,1.8708959876686821
+TODO sin facturado (incl. t-7),GradBoosting,inversion_medios_usd,2.6864085674784803,1.4441869033983217,1.5337186893679342
+TODO sin facturado (incl. t-7),GradBoosting,dia_quincena,2.685144240552726,1.537160652753779,1.5329968625174037
+TODO sin facturado (incl. t-7),GradBoosting,ventas_hace_7_dias,0.7744056223971597,3.234014450237872,0.4421220177007366
+TODO sin facturado (incl. t-7),GradBoosting,precio_competidor,0.33223420439655815,1.7645042914847564,0.1896784482818135
+TODO sin facturado (incl. t-7),GradBoosting,codigo_region,0.308180749528834,2.0121986610753932,0.17594590077541405
+TODO sin facturado (incl. t-7),GradBoosting,inflacion_mensual_pct,0.0,0.0,0.0
+TODO sin facturado (incl. t-7),GradBoosting,promo_competidor,0.0,0.0,0.0
+TODO sin facturado (incl. t-7),GradBoosting,confianza_consumidor,0.0,0.0,0.0
+TODO sin facturado (incl. t-7),GradBoosting,distribucion_numerica,-2.875980575763385,1.1971174678379939,-1.6419487388128984
+CON LEAKAGE (todo + facturado),Ridge_logy,unidades_facturadas_mismo_dia,473.7029535812892,42.26628620553917,416.85072219145894
+CON LEAKAGE (todo + facturado),Ridge_logy,indice_precio_relativo,32.00809460446351,12.919856112690523,28.166591005967867
+CON LEAKAGE (todo + facturado),Ridge_logy,quiebre_stock_pct,28.918421780649943,8.44306611426156,25.447730297574594
+CON LEAKAGE (todo + facturado),Ridge_logy,precio_competidor,23.699650686651264,4.479584782229899,20.855298515086364
+CON LEAKAGE (todo + facturado),Ridge_logy,precio,16.23675520028508,3.3328490347265833,14.28807458369224
+CON LEAKAGE (todo + facturado),Ridge_logy,promo_competidor,5.195396640700789,2.1157557033114225,4.571862652267716
+CON LEAKAGE (todo + facturado),Ridge_logy,dia_semana,5.085997247407249,6.5253754583315215,4.475593005315021
+CON LEAKAGE (todo + facturado),Ridge_logy,grp_tv,1.8577782347581457,0.6530775088984035,1.6348139545590024
+CON LEAKAGE (todo + facturado),Ridge_logy,dia_quincena,0.5692751264325149,1.1174773486280947,0.5009526450805756
+CON LEAKAGE (todo + facturado),Ridge_logy,temperatura_c,0.04423829736270382,0.025793301790845533,0.03892896606353774
+CON LEAKAGE (todo + facturado),Ridge_logy,inflacion_mensual_pct,-0.17874756711756892,0.8056557140767863,-0.15729488676312106
+CON LEAKAGE (todo + facturado),Ridge_logy,codigo_region,-0.22881605672917166,3.2858259195141764,-0.20135432505845482
+CON LEAKAGE (todo + facturado),Ridge_logy,confianza_consumidor,-0.2393339212909543,0.36452633285189207,-0.21060987097672337
+CON LEAKAGE (todo + facturado),Ridge_logy,distribucion_numerica,-0.4572124298815941,0.7750283436421287,-0.40233933554807033
+CON LEAKAGE (todo + facturado),Ridge_logy,promo_pct,-0.5589613684297859,0.14675249128826304,-0.49187670954029244
+CON LEAKAGE (todo + facturado),Ridge_logy,ventas_mismo_dia_anio_anterior,-0.8068422752473315,0.6497179463537905,-0.7100077856570386
+CON LEAKAGE (todo + facturado),Ridge_logy,inversion_medios_usd,-1.2051897793048074,1.6119451671501293,-1.0605469653141248
+CON LEAKAGE (todo + facturado),Ridge_logy,ventas_hace_7_dias,-2.456486299713542,1.6108809949533032,-2.1616670961146847
+CON LEAKAGE (todo + facturado),Ridge_logy,exhibicion,-4.132405854512408,6.799715416368825,-3.636448436342938
+CON LEAKAGE (todo + facturado),GradBoosting,unidades_facturadas_mismo_dia,633.042953039562,57.271623552142685,1166.2266887521155
+CON LEAKAGE (todo + facturado),GradBoosting,indice_precio_relativo,10.752814402866452,2.4181254627201176,19.809428531838183
+CON LEAKAGE (todo + facturado),GradBoosting,promo_pct,3.5961125267921044,1.0606918919581427,6.624957097087632
+CON LEAKAGE (todo + facturado),GradBoosting,precio,3.1992282796925458,0.8586454084371752,5.893795018605624
+CON LEAKAGE (todo + facturado),GradBoosting,exhibicion,2.4623750455582596,1.2957010726526625,4.536323296956096
+CON LEAKAGE (todo + facturado),GradBoosting,temperatura_c,2.0578195064769664,1.0042701878456473,3.791028740727747
+CON LEAKAGE (todo + facturado),GradBoosting,ventas_hace_7_dias,0.7572586782494677,0.456458903577616,1.3950637577170675
+CON LEAKAGE (todo + facturado),GradBoosting,grp_tv,0.697430769344573,0.7769054359003866,1.2848454798543991
+CON LEAKAGE (todo + facturado),GradBoosting,quiebre_stock_pct,0.6218235411555227,0.2595547269760575,1.1455576685719768
+CON LEAKAGE (todo + facturado),GradBoosting,inversion_medios_usd,0.6203791671260627,0.5124619312454675,1.142896762967375
+CON LEAKAGE (todo + facturado),GradBoosting,dia_quincena,0.19688089376829485,0.1752875787848312,0.3627048555165042
+CON LEAKAGE (todo + facturado),GradBoosting,inflacion_mensual_pct,0.0,0.0,0.0
+CON LEAKAGE (todo + facturado),GradBoosting,confianza_consumidor,0.0,0.0,0.0
+CON LEAKAGE (todo + facturado),GradBoosting,dia_semana,-0.037308030835405265,0.18548018159825982,-0.06873091479199733
+CON LEAKAGE (todo + facturado),GradBoosting,codigo_region,-0.06187857477664191,0.23008013313538483,-0.11399612778242767
+CON LEAKAGE (todo + facturado),GradBoosting,distribucion_numerica,-0.0697220427100504,0.16950366088997024,-0.1284457975755937
+CON LEAKAGE (todo + facturado),GradBoosting,precio_competidor,-0.23452872065828695,0.354673015640504,-0.4320617613659632
+CON LEAKAGE (todo + facturado),GradBoosting,promo_competidor,-0.26454353289306337,0.11323979350325886,-0.48735670607391285
+CON LEAKAGE (todo + facturado),GradBoosting,ventas_mismo_dia_anio_anterior,-0.6052042169351886,0.41731131433363117,-1.1149406316683736
