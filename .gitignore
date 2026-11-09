@@ -1,2 +1,4 @@
 alfa-constructora-web.zip
 assets/marca-original/
+__pycache__/
+*.pyc
