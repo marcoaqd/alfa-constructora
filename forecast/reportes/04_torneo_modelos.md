@@ -191,7 +191,15 @@ Lectura:
   | Dataset completo como archivo externo (in-sample) | Bias +9,6 %: D-05 aplica la distribución de jun (0,914) a ene–feb (0,84). Muestra el riesgo de D-05 si el periodo externo tiene otra distribución |
 
   Las salidas de las dos primeras pruebas están en `forecast/reportes/05_salidas/`.
-- **Advertencia:** may–jun se usó en la selección de variables (hallazgo 2 de QA), así que estas cifras son algo optimistas. La única prueba limpia será el dataset externo.
+- **Advertencia:** may–jun se usó en la selección de variables (hallazgo 2 de QA), así que estas cifras son algo optimistas.
+- **Anti-leakage:** el pipeline excluye automáticamente de la historia toda fecha ≥ la primera fecha del archivo a pronosticar. Si la historia queda con menos de 63 días, termina con ERROR.
+- **Lectura de la hoja:** si la hoja `Datos_completos` no existe, se usa la primera hoja que tenga `fecha` y `promo_pct`.
+- **Opción de distribución:** `--distribucion archivo` usa el valor del archivo como plan (D-11), recortado al rango de entrenamiento.
+- **Archivo externo `data/reto1_validacion_equipos.xlsx`:**
+  - La hoja `Datos_validacion` (61 filas, 1-may → 30-jun) es **idéntica columna por columna** a nuestras filas de may–jun y no trae ventas.
+  - Se pronosticó con la historia cortada al 30-abr (120 días): `05_salidas/pronostico_reto1_validacion_equipos.xlsx` y `.csv`.
+  - Con `--distribucion archivo` el total del P50 cambia +0,54 %.
+  - Como el archivo es el mismo periodo, la prueba "una vez" de arriba (WAPE 8,72 %) es la mejor estimación de la nota del facilitador. Hay que leerla con la advertencia de optimismo por selección.
 
 ## 10. Limitaciones
 
