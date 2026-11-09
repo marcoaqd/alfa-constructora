@@ -1,0 +1,38 @@
+comparacion,a,b,contexto,metrica,dif_pp,IC95_lo,IC95_hi,significativa,n_folds
+L1 OLS log des-censurado y/(1-q) - L0o OLS log núcleo (q control),L1 OLS log des-censurado y/(1-q),L0o OLS log núcleo (q control),(b) quiebre,PA31_P75,-0.829,-1.6232,-0.0653,True,12
+L1 OLS log des-censurado y/(1-q) - L0o OLS log núcleo (q control),L1 OLS log des-censurado y/(1-q),L0o OLS log núcleo (q control),(b) quiebre,WAPE_P50_sq,-0.176,-0.4166,0.0553,False,12
+L5 OLS log des-censurado + promo² - L1 OLS log des-censurado y/(1-q),L5 OLS log des-censurado + promo²,L1 OLS log des-censurado y/(1-q),(d) promo²,PA31_P75,-1.2801,-3.3029,0.6223,False,12
+L5 OLS log des-censurado + promo² - L1 OLS log des-censurado y/(1-q),L5 OLS log des-censurado + promo²,L1 OLS log des-censurado y/(1-q),(d) promo²,WAPE_P50_sq,-0.698,-1.773,0.3154,False,12
+L3 OLS log + fin_mes (q control) - L0o OLS log núcleo (q control),L3 OLS log + fin_mes (q control),L0o OLS log núcleo (q control),(c) calendario,PA31_P75,-0.3641,-1.3686,0.6211,False,12
+L3 OLS log + fin_mes (q control) - L0o OLS log núcleo (q control),L3 OLS log + fin_mes (q control),L0o OLS log núcleo (q control),(c) calendario,WAPE_P50_sq,0.0064,-0.5823,0.5061,False,12
+L4 OLS log + dia_quincena (q control) - L0o OLS log núcleo (q control),L4 OLS log + dia_quincena (q control),L0o OLS log núcleo (q control),(c) calendario,PA31_P75,-0.3176,-1.2549,0.5643,False,12
+L4 OLS log + dia_quincena (q control) - L0o OLS log núcleo (q control),L4 OLS log + dia_quincena (q control),L0o OLS log núcleo (q control),(c) calendario,WAPE_P50_sq,0.1654,-0.2986,0.6325,False,12
+L3 OLS log + fin_mes (q control) - L4 OLS log + dia_quincena (q control),L3 OLS log + fin_mes (q control),L4 OLS log + dia_quincena (q control),(c) fin_mes vs quincena,PA31_P75,-0.0465,-0.7994,0.5346,False,12
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),L1 OLS log des-censurado y/(1-q),L0 Ridge log núcleo QA (q control),LIN* vs núcleo QA,PA31_P75,-0.6158,-1.2065,0.0035,False,12
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),L1 OLS log des-censurado y/(1-q),L0 Ridge log núcleo QA (q control),LIN* vs núcleo QA,WAPE_P50_sq,-0.1706,-0.4116,0.0655,False,12
+E2 Ensamble top-2 - L1 OLS log des-censurado y/(1-q),E2 Ensamble top-2,L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,-1.3286,-3.3995,0.5863,False,12
+E3 Ensamble top-3 - L1 OLS log des-censurado y/(1-q),E3 Ensamble top-3,L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,-1.2511,-3.1876,0.4976,False,12
+"C2 LIN* + competidor control, futuro 0 - L1 OLS log des-censurado y/(1-q)","C2 LIN* + competidor control, futuro 0",L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,-0.5372,-1.3286,0.2623,False,12
+"C3 LIN* + competidor control, futuro tasa hist. - L1 OLS log des-censurado y/(1-q)","C3 LIN* + competidor control, futuro tasa hist.",L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,-0.4734,-1.4092,0.4593,False,12
+M5a GLM Poisson offset log(1-q) - L1 OLS log des-censurado y/(1-q),M5a GLM Poisson offset log(1-q),L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,-0.3233,-1.2963,0.6423,False,12
+M5b GLM BinNeg offset log(1-q) - L1 OLS log des-censurado y/(1-q),M5b GLM BinNeg offset log(1-q),L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,-0.0467,-0.2458,0.1523,False,12
+M7 Híbrido LIN* + GBM residuos - L1 OLS log des-censurado y/(1-q),M7 Híbrido LIN* + GBM residuos,L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,0.5091,-0.8532,1.9053,False,12
+M8a GBM directo (log y) - L1 OLS log des-censurado y/(1-q),M8a GBM directo (log y),L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,0.8556,-1.2694,3.0808,False,12
+"M6 Cuantílica log (tau 0,5 / 0,75) - L1 OLS log des-censurado y/(1-q)","M6 Cuantílica log (tau 0,5 / 0,75)",L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,1.496,-0.4932,3.8864,False,12
+M8b RandomForest directo - L1 OLS log des-censurado y/(1-q),M8b RandomForest directo,L1 OLS log des-censurado y/(1-q),retador vs LIN*,PA31_P75,9.7565,5.5281,14.8598,True,12
+L2 OLS log + promo² (q control) - E2 Ensamble top-2,L2 OLS log + promo² (q control),E2 Ensamble top-2,mejor vs segundo,PA31_P75,-0.1068,-0.3793,0.113,False,12
+L2 OLS log + promo² (q control) - E2 Ensamble top-2,L2 OLS log + promo² (q control),E2 Ensamble top-2,mejor vs segundo,WAPE_P50_sq,0.0578,-0.0473,0.1683,False,12
+L2 OLS log + promo² (q control) - L1 OLS log des-censurado y/(1-q),L2 OLS log + promo² (q control),L1 OLS log des-censurado y/(1-q),mejor por métrica vs ganador,PA31_P75,-1.4354,-3.614,0.5303,False,12
+L2 OLS log + promo² (q control) - L1 OLS log des-censurado y/(1-q),L2 OLS log + promo² (q control),L1 OLS log des-censurado y/(1-q),mejor por métrica vs ganador,WAPE_P50_sq,-0.6247,-1.7434,0.361,False,12
+L2 OLS log + promo² (q control) - L0 Ridge log núcleo QA (q control),L2 OLS log + promo² (q control),L0 Ridge log núcleo QA (q control),mejor vs núcleo QA,PA31_P75,-2.0513,-4.3175,0.2176,False,12
+L2 OLS log + promo² (q control) - L0 Ridge log núcleo QA (q control),L2 OLS log + promo² (q control),L0 Ridge log núcleo QA (q control),mejor vs núcleo QA,WAPE_P50_sq,-0.7953,-2.0841,0.3817,False,12
+L2 OLS log + promo² (q control) - L0 Ridge log núcleo QA (q control),L2 OLS log + promo² (q control),L0 Ridge log núcleo QA (q control),mejor vs núcleo QA,WAPE_P50,-0.7496,-1.8637,0.3484,False,12
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),L1 OLS log des-censurado y/(1-q),L0 Ridge log núcleo QA (q control),ganador vs núcleo QA,PA31_P75,-0.6158,-1.2065,0.0035,False,12
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),L1 OLS log des-censurado y/(1-q),L0 Ridge log núcleo QA (q control),ganador vs núcleo QA,WAPE_P50_sq,-0.1706,-0.4116,0.0655,False,12
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),L1 OLS log des-censurado y/(1-q),L0 Ridge log núcleo QA (q control),ganador vs núcleo QA,WAPE_P50,-0.1371,-0.3721,0.0836,False,12
+L1 OLS log des-censurado y/(1-q) - B3 Baseline × uplift promo,L1 OLS log des-censurado y/(1-q),B3 Baseline × uplift promo,FVA ganador vs baseline,PA31_P75,-15.5958,-26.3817,-7.0268,True,12
+L1 OLS log des-censurado y/(1-q) - B3 Baseline × uplift promo,L1 OLS log des-censurado y/(1-q),B3 Baseline × uplift promo,FVA ganador vs baseline,WAPE_P50_sq,-6.4737,-10.4347,-2.8841,True,12
+L1 OLS log des-censurado y/(1-q) - B2 Media móvil 28d,L1 OLS log des-censurado y/(1-q),B2 Media móvil 28d,FVA ganador vs baseline,PA31_P75,-60.4203,-77.7888,-42.4871,True,12
+L1 OLS log des-censurado y/(1-q) - B2 Media móvil 28d,L1 OLS log des-censurado y/(1-q),B2 Media móvil 28d,FVA ganador vs baseline,WAPE_P50_sq,-24.8981,-30.5252,-18.8614,True,12
+C4 LIN* + competidor bloque en curso (SC-08) - L1 OLS log des-censurado y/(1-q),C4 LIN* + competidor bloque en curso (SC-08),L1 OLS log des-censurado y/(1-q),SC-08 competidor bloque vs ganador,PA31_P75,-0.1414,-1.9177,1.4945,False,12
+C4 LIN* + competidor bloque en curso (SC-08) - L1 OLS log des-censurado y/(1-q),C4 LIN* + competidor bloque en curso (SC-08),L1 OLS log des-censurado y/(1-q),SC-08 competidor bloque vs ganador,WAPE_P50_sq,-0.5223,-1.2836,0.2021,False,12

@@ -1,0 +1,18 @@
+comparacion,contexto,metrica,dif_pp,IC95_lo,IC95_hi,significativa,n_folds
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),hold-out,PA31_P75,0.1733,-0.3285,0.7463,False,4
+L1 OLS log des-censurado y/(1-q) - L0 Ridge log núcleo QA (q control),hold-out,WAPE_P50_sq,0.035,-0.0645,0.1668,False,4
+L2 OLS log + promo² (q control) - L0 Ridge log núcleo QA (q control),hold-out,PA31_P75,0.606,-0.6892,2.009,False,4
+L2 OLS log + promo² (q control) - L0 Ridge log núcleo QA (q control),hold-out,WAPE_P50_sq,0.5074,0.3538,0.7658,True,4
+E2 Ensamble top-2 - L0 Ridge log núcleo QA (q control),hold-out,PA31_P75,0.5861,-0.6259,1.8988,False,4
+E2 Ensamble top-2 - L0 Ridge log núcleo QA (q control),hold-out,WAPE_P50_sq,0.5493,0.302,0.9118,True,4
+M5a GLM Poisson offset log(1-q) - L0 Ridge log núcleo QA (q control),hold-out,PA31_P75,0.7513,-0.3099,1.4532,False,4
+M5a GLM Poisson offset log(1-q) - L0 Ridge log núcleo QA (q control),hold-out,WAPE_P50_sq,0.0816,-0.1305,0.3298,False,4
+C4 LIN* + competidor bloque en curso (SC-08) - L0 Ridge log núcleo QA (q control),hold-out,PA31_P75,0.394,-0.5771,1.3062,False,4
+C4 LIN* + competidor bloque en curso (SC-08) - L0 Ridge log núcleo QA (q control),hold-out,WAPE_P50_sq,0.5339,0.3266,0.7492,True,4
+B3 Baseline × uplift promo - L0 Ridge log núcleo QA (q control),hold-out,PA31_P75,5.1716,1.9652,8.517,True,4
+B3 Baseline × uplift promo - L0 Ridge log núcleo QA (q control),hold-out,WAPE_P50_sq,4.2322,1.1129,7.369,True,4
+L2 OLS log + promo² (q control) - L1 OLS log des-censurado y/(1-q),hold-out vs ganador,PA31_P75,0.4327,-0.3607,1.2921,False,4
+E2 Ensamble top-2 - L1 OLS log des-censurado y/(1-q),hold-out vs ganador,PA31_P75,0.4127,-0.2974,1.182,False,4
+M5a GLM Poisson offset log(1-q) - L1 OLS log des-censurado y/(1-q),hold-out vs ganador,PA31_P75,0.578,-0.0892,1.0858,False,4
+C4 LIN* + competidor bloque en curso (SC-08) - L1 OLS log des-censurado y/(1-q),hold-out vs ganador,PA31_P75,0.2207,-0.819,1.5246,False,4
+B3 Baseline × uplift promo - L1 OLS log des-censurado y/(1-q),hold-out vs ganador,PA31_P75,4.9983,1.219,8.7063,True,4

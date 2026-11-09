@@ -1,0 +1,8 @@
+modelo,dias_y>max_train,P50/y_en_esos_dias,max_P50_vs_max_train,WAPE_P50_promo30_sq_%,Bias_P50_promo30_sq_%
+L1 OLS log des-censurado y/(1-q),7,0.9198,1.0958,9.0612,-5.3062
+L0 Ridge log núcleo QA (q control),7,0.9091,1.0874,9.6711,-6.0685
+L2 OLS log + promo² (q control),7,0.9635,1.1812,6.4375,1.0196
+"M6 Cuantílica log (tau 0,5 / 0,75)",7,0.9159,1.0974,8.8917,-5.3227
+M7 Híbrido LIN* + GBM residuos,7,0.9222,1.0784,10.6127,-5.1324
+M8a GBM directo (log y),7,0.9027,1.04,13.4784,-10.5443
+M8b RandomForest directo,7,0.7951,0.9407,21.4016,-17.8336

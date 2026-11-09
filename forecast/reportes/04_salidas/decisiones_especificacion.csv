@@ -1,0 +1,5 @@
+id,prueba,dif_PA31_pp,IC95,dif_WAPE_sq_pp,decision,regla
+(b) tratamiento del quiebre,L1 OLS log des-censurado y/(1-q) - L0o OLS log núcleo (q control),-0.8290490787498263,[-1.62; -0.07],-0.17597529040485374,des-censurar y/(1-q),más simple (1 parámetro menos) salvo que sea significativamente peor
+(d) promo² (convexidad),L5 OLS log des-censurado + promo² - L1 OLS log des-censurado y/(1-q),-1.2800994942484707,[-3.30; +0.62],-0.6979758553442134,no incluir,entra solo si el IC95 excluye 0 a su favor
+(c) fin_mes,L3 OLS log + fin_mes (q control) - L0o OLS log núcleo (q control),-0.3640711179794329,[-1.37; +0.62],0.006373560343671524,no incluir,entra solo si el IC95 excluye 0 a su favor
+(c) dia_quincena,L4 OLS log + dia_quincena (q control) - L0o OLS log núcleo (q control),-0.31760771058846216,[-1.25; +0.56],0.16539059779883913,no incluir,entra solo si el IC95 excluye 0 a su favor
